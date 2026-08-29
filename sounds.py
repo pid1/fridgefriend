@@ -69,4 +69,5 @@ def play_sound(magtag, sound_sequence):
         else:
             # Silence - just wait
             import time
+
             time.sleep(duration)

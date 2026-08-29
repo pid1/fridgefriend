@@ -33,7 +33,9 @@ def create_base_dino(draw, offset_y=0, eye_style="normal"):
     body_top = 28 + offset_y
     body_right = 48
     body_bottom = 54 + offset_y
-    draw.ellipse([body_left, body_top, body_right, body_bottom], fill=DARK_GRAY, outline=BLACK)
+    draw.ellipse(
+        [body_left, body_top, body_right, body_bottom], fill=DARK_GRAY, outline=BLACK
+    )
 
     # Head (circle, overlapping body)
     head_cx, head_cy = 32, 24 + offset_y
@@ -41,7 +43,7 @@ def create_base_dino(draw, offset_y=0, eye_style="normal"):
     draw.ellipse(
         [head_cx - head_r, head_cy - head_r, head_cx + head_r, head_cy + head_r],
         fill=DARK_GRAY,
-        outline=BLACK
+        outline=BLACK,
     )
 
     # Belly (lighter oval)
@@ -145,11 +147,15 @@ def create_pet():
     img = Image.new("RGB", (SIZE, SIZE), WHITE)
     draw = ImageDraw.Draw(img)
     create_base_dino(draw, offset_y=0, eye_style="closed")
+
     # Add hearts
     def draw_heart(x, y, size=6):
         draw.ellipse([x, y, x + size // 2, y + size // 2], fill=DARK_GRAY)
         draw.ellipse([x + size // 2, y, x + size, y + size // 2], fill=DARK_GRAY)
-        draw.polygon([(x, y + size // 3), (x + size // 2, y + size), (x + size, y + size // 3)], fill=DARK_GRAY)
+        draw.polygon(
+            [(x, y + size // 3), (x + size // 2, y + size), (x + size, y + size // 3)],
+            fill=DARK_GRAY,
+        )
 
     draw_heart(6, 8, 8)
     draw_heart(50, 12, 6)

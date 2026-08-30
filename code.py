@@ -12,7 +12,6 @@ import rtc
 import socketpool
 import wifi
 from adafruit_magtag.magtag import MagTag
-
 from dino import (
     ACTION_FEED,
     ACTION_PET,

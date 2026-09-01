@@ -4,35 +4,43 @@ Tamagotchi-style companion for the Adafruit MagTag e-ink display.
 """
 
 import time
+
+import adafruit_ntp
 import alarm
 import board
 import rtc
 import socketpool
 import wifi
-import adafruit_ntp
 from adafruit_magtag.magtag import MagTag
-
-from dino import DinoSprite, is_night_time, ACTION_PLAY, ACTION_PET, ACTION_FEED, ACTION_SLEEP
+from dino import (
+    ACTION_FEED,
+    ACTION_PET,
+    ACTION_PLAY,
+    ACTION_SLEEP,
+    DinoSprite,
+    is_night_time,
+)
 from sounds import (
-    play_sound,
-    PLAY_SOUND,
-    PET_SOUND,
     FEED_SOUND,
+    PET_SOUND,
+    PLAY_SOUND,
     SLEEP_SOUND,
+    play_sound,
 )
 
 # Button to action mapping
 # MagTag buttons: A=D15, B=D14, C=D12, D=D11
 # buttons[0]=A, buttons[1]=B, buttons[2]=C, buttons[3]=D
 BUTTON_ACTIONS = {
-    0: (ACTION_PLAY, PLAY_SOUND),   # D15 - Play
-    1: (ACTION_PET, PET_SOUND),     # D14 - Pet
-    2: (ACTION_FEED, FEED_SOUND),   # D12 - Feed
-    3: (ACTION_SLEEP, SLEEP_SOUND), # D11 - Sleep
+    0: (ACTION_PLAY, PLAY_SOUND),  # D15 - Play
+    1: (ACTION_PET, PET_SOUND),  # D14 - Pet
+    2: (ACTION_FEED, FEED_SOUND),  # D12 - Feed
+    3: (ACTION_SLEEP, SLEEP_SOUND),  # D11 - Sleep
 }
 
 # Timing constants
-ACTION_DISPLAY_DURATION = 5. # Seconds to show action sprite before sleep
+ACTION_DISPLAY_DURATION = 5.0  # Seconds to show action sprite before sleep
+
 
 def safe_refresh(display):
     """Safely refresh the e-ink display, waiting if necessary."""
@@ -43,6 +51,7 @@ def safe_refresh(display):
     # Wait for refresh to complete
     while display.busy:
         time.sleep(0.1)
+
 
 def sync_time(magtag):
     """Sync time from NTP via WiFi. Requires secrets.py with WiFi credentials."""
@@ -56,6 +65,7 @@ def sync_time(magtag):
         # Get timezone offset from secrets (default to UTC-6 for Central)
         try:
             from secrets import secrets
+
             tz_offset = secrets.get("tz_offset_hours", -6)
         except (ImportError, KeyError):
             tz_offset = -6  # Default to Central Time
@@ -87,6 +97,7 @@ def go_to_sleep(magtag):
 
     # Deep sleep until a button is pressed
     alarm.exit_and_deep_sleep_until_alarms(*pin_alarms)
+
 
 def main():
 

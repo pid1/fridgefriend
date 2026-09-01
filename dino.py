@@ -4,6 +4,7 @@ Handles loading, displaying, and animating the chibi dino.
 """
 
 import time
+
 import displayio
 import terminalio
 from adafruit_display_text import label
@@ -23,6 +24,7 @@ SPRITE_PATHS = {
     ACTION_FEED: "/sprites/feed.bmp",
     ACTION_SLEEP: "/sprites/sleep.bmp",
 }
+
 
 class DinoSprite:
     """Manages the dinosaur sprite display and animations."""
@@ -83,7 +85,7 @@ class DinoSprite:
                 text=text,
                 color=0x000000,
                 anchor_point=(0.5, 0.5),
-                anchored_position=(label_x, label_y)
+                anchored_position=(label_x, label_y),
             )
             self.group.append(btn_label)
 
@@ -103,10 +105,7 @@ class DinoSprite:
         filepath = SPRITE_PATHS[sprite_name]
         bitmap = displayio.OnDiskBitmap(filepath)
         tile_grid = displayio.TileGrid(
-            bitmap,
-            pixel_shader=bitmap.pixel_shader,
-            x=self.sprite_x,
-            y=self.sprite_y
+            bitmap, pixel_shader=bitmap.pixel_shader, x=self.sprite_x, y=self.sprite_y
         )
         return tile_grid
 

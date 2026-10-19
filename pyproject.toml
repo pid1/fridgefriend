@@ -1,0 +1,9 @@
+# Host-side tooling only. code.py, dino.py and sounds.py run on the MagTag
+# under CircuitPython with libraries from the CircuitPython bundle (see README);
+# this covers generate_sprites.py, which runs on your computer.
+[project]
+name = "fridgefriend"
+version = "0.1.0"
+description = "Host tools for FridgeFriend: generates the e-ink dinosaur sprites."
+requires-python = ">=3.15"
+dependencies = ["pillow>=13.0.0"]
